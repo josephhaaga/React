@@ -84,22 +84,91 @@ class Comment extends React.Component{
 // Dynamic Props
 
 
+// class CommentBox extends React.Component{
+
+// 	render(){
+// 		const comments = this._getComments();
+// 		return (
+// 			<div className="comment-box">
+// 				<h3>Comments</h3>
+// 				<h4 className="comment-count">{this._getCommentsTitle(comments.length)}</h4>
+// 				<div className="comment-list">
+// 					{comments}
+// 				</div>
+// 			</div>
+// 		);
+
+// 	}
+
+// 	_getCommentsTitle(commentCount) {
+// 		if(commentCount === 0){
+// 			return 'No comments yet';
+// 		}else if(commentCount === 1){
+// 			return '1 comment';
+// 		}else{
+// 			return `${commentCount} comments`;
+// 		}
+
+// 	}
+
+
+// 	// use underscore to distinguish custom methods from React methods
+// 	_getComments() { // returns array of dynamically-generated JSX elements
+		
+// 		const commentList = [
+// 			{ id:1, author: 'Morgan McCircuit', body: 'Great picture!'},
+// 			{ id:2, author: 'Lorem Ipsum', body: 'Really great picture!'},
+// 			{ id:3, author: 'Bending Bender', body: 'Excellent stuff!'}
+// 		];
+
+// 		return commentList.map((comment)=>{
+// 			return (<Comment author={comment.author} body={comment.body} key={comment.id} />);
+// 				// pass comment's id as unique key; helps performance
+// 		});
+
+// 	}
+
+
+// }
+
+// ReactDOM.render(<CommentBox />,document.getElementById('story-app'));
+
+
+ // 888888 8888o. 8888o.    88     888888 88  88 888888 88        888888 88 88 88 .o88o. 
+ // 88     88  88 88  88    88     88     88  88 88     88          88   88 88 88 88  88 
+ // 8888   88  88 88  88    88     8888   88  88 8888   88          88   88 88 88 88  88 
+ // 88     88  88 88  88    88     88     88 .8' 88     88          88   88 88 88 88  88 
+ // 888888 88  88 8888Y'    888888 888888 888'   888888 888888      88   888888Y' 'Y88Y' 
+
+
 class CommentBox extends React.Component{
+	constructor() {
+		super();
+		this.state = {
+			showComments: false
+		};
+	}
+
+	// this.setState({showComments:true});
 
 	render(){
 		const comments = this._getComments();
+		let commentNodes;
+		let buttonText = "Show comments";
+
+		if (this.state.showComments){
+			commentNodes = <div className="comment-list">{comments}</div>;
+			buttonText="Hide comments";
+		}
 		return (
 			<div className="comment-box">
+				<button onClick={this._handleClick.bind(this)}>{buttonText}</button>
 				<h3>Comments</h3>
 				<h4 className="comment-count">{this._getCommentsTitle(comments.length)}</h4>
-				<div className="comment-list">
-					{comments}
-				</div>
+				{commentNodes}
 			</div>
 		);
-
 	}
-
 	_getCommentsTitle(commentCount) {
 		if(commentCount === 0){
 			return 'No comments yet';
@@ -108,31 +177,23 @@ class CommentBox extends React.Component{
 		}else{
 			return `${commentCount} comments`;
 		}
-
 	}
-
-
 	// use underscore to distinguish custom methods from React methods
 	_getComments() { // returns array of dynamically-generated JSX elements
-		
 		const commentList = [
 			{ id:1, author: 'Morgan McCircuit', body: 'Great picture!'},
 			{ id:2, author: 'Lorem Ipsum', body: 'Really great picture!'},
 			{ id:3, author: 'Bending Bender', body: 'Excellent stuff!'}
 		];
-
 		return commentList.map((comment)=>{
 			return (<Comment author={comment.author} body={comment.body} key={comment.id} />);
 				// pass comment's id as unique key; helps performance
 		});
-
 	}
-
-
+	_handleClick(){
+		this.setState({showComments:!this.state.showComments});
+	}
 }
 
 ReactDOM.render(<CommentBox />,document.getElementById('story-app'));
-
-
-
 
