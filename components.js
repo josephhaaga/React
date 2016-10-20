@@ -91,7 +91,7 @@ class CommentBox extends React.Component{
 		return (
 			<div className="comment-box">
 				<h3>Comments</h3>
-				<h4 className="comment-count">{comments.length} comments</h4>
+				<h4 className="comment-count">{this._getCommentsTitle(comments.length)}</h4>
 				<div className="comment-list">
 					{comments}
 				</div>
@@ -100,9 +100,21 @@ class CommentBox extends React.Component{
 
 	}
 
+	_getCommentsTitle(commentCount) {
+		if(commentCount === 0){
+			return 'No comments yet';
+		}else if(commentCount === 1){
+			return '1 comment';
+		}else{
+			return `${commentCount} comments`;
+		}
+
+	}
+
 
 	// use underscore to distinguish custom methods from React methods
 	_getComments() { // returns array of dynamically-generated JSX elements
+		
 		const commentList = [
 			{ id:1, author: 'Morgan McCircuit', body: 'Great picture!'},
 			{ id:2, author: 'Lorem Ipsum', body: 'Really great picture!'},
